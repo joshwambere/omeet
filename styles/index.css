@@ -86,9 +86,12 @@
 }
 .inputs > input{
     padding:.5rem;
-    margin: .5rem 0 0 0;
+    margin: .75rem 0 0 0;
     border-radius: .25rem;
     outline: none;
+    background: transparent;
+    border: 2px solid #fff;
+    color: #fff;
 }
 #join{
     background: #3791f3;
