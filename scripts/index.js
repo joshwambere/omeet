@@ -38,7 +38,12 @@ const constraints={
             max:1080
         }
     },
-    audio:true
+    audio:{
+        sampleRate: 48000,
+        volume: 1.0,
+        echoCancellation: true,
+        noiseSuppression: true,
+    }
 }
 const init = async () => {
     client = await AgoraRTM.createInstance(app_id);
@@ -48,7 +53,10 @@ const init = async () => {
     channel.on("MemberJoined", handleUserJoined);
     client.on('MessageFromPeer', handleMessageFromPeer);
     localStream = await navigator.mediaDevices.getUserMedia(constraints)
+    console.log(localStream)
     document.getElementById('user').srcObject = localStream;
+    document.getElementById('user').muted = true;
+
 }
 
 const handleUserJoined = async (memberId)=>{
