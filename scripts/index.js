@@ -48,9 +48,7 @@ const init = async () => {
     channel.on("MemberJoined", handleUserJoined);
     client.on('MessageFromPeer', handleMessageFromPeer);
     localStream = await navigator.mediaDevices.getUserMedia(constraints)
-    console.log(localStream)
     document.getElementById('user').srcObject = localStream;
-    document.getElementById('user').muted = true;
 
 }
 
@@ -98,6 +96,7 @@ const createPeerConnection = async(memberId)=>{
 const createOffer= async(memberId)=>{
     await createPeerConnection(memberId);
     let offer = await peerConnection.createOffer()
+    console.log(offer)
     await peerConnection.setLocalDescription(offer);
     client.sendMessageToPeer({text: JSON.stringify({'type': 'offer', offer})}, memberId);
 
