@@ -38,7 +38,16 @@ const constraints={
             max:1080
         }
     },
-    audio:true
+    audio:{
+        echoCancellationType: 'system',
+        echoCancellation: true,
+        noiseSuppression: true,
+        sampleRate:24000,
+        sampleSize:16,
+        channelCount:2,
+        volume:0.5
+    },
+
 }
 const init = async () => {
     client = await AgoraRTM.createInstance(app_id);
