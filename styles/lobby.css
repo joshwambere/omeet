@@ -1,0 +1,27 @@
+
+.window{
+ border: 1px solid #fff;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+.top-menu{
+    border: 1px solid #fff;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.buttons{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    height: 100%;
+    padding: 0 10px;
+}
+.buttons >div{
+    width: 14px;
+    height: 14px;
+    border-color: #fff;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 1px;
+    margin: 6px 3px;
+}

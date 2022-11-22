@@ -100,6 +100,16 @@
     outline: none;
     border: none;
 }
+.new_meeting_btn{
+    background-color: #3791f3 ;
+    color: #ffffff ;
+    font-size: 18px ;
+    font-weight: 500 ;
+    height: 42px ;
+    border: none ;
+    padding: 0 2rem ;
+    border-radius: 1.5rem ;
+}
 
 @media screen and (max-width: 600px){
     .small-frame{
