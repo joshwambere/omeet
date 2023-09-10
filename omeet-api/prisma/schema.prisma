@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String      @id @default(uuid())
+  email     String   @unique
+  name      String?
+  password  String
+  status    EUserAccountStatus @default(ACTIVE)
+  invites   invitations[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model invitations {
+  id        Int      @id @default(autoincrement())
+  status     String
+  title      String
+  organizerId String
+  organizer  User @relation(fields: [organizerId], references: [id])
+  invitiees Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum EUserAccountStatus {
+  ACTIVE
+  INACTIVE
+  DELETED
+  VERIFIED
+  UNVERIFIED
+}

@@ -1,0 +1,52 @@
+version: '3.7'
+
+services:
+
+  db:
+
+    image: postgres:12-alpine
+
+    networks:
+
+      - postgres
+
+    environment:
+
+      POSTGRES_PASSWORD: password
+
+      POSTGRES_USER: postgres
+
+      POSTGRES_DB: omeet
+
+    volumes:
+
+      - ../pgdata:/var/lib/postgresql/data
+
+    ports:
+
+      - '5432:5432'
+
+  server:
+    container_name: omeet-backend
+    build:
+        context: ../
+        dockerfile: ./Dockerfile
+        target: development
+
+    depends_on:
+
+      - db
+
+    networks:
+
+      - postgres
+
+    ports:
+
+      - '4000:4000'
+
+networks:
+
+  postgres:
+
+    driver: bridge

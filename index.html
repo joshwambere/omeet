@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Apollo</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="./styles/index.css">
+
+</head>
+<body>
+    <div id="videos">
+        <video src="" class="player" id="user" muted autoplay playsinline></video>
+        <video src="" class="player" id="user1"  autoplay playsinline></video>
+    </div>
+    <div class="controls">
+        <div class="control-cont" id="camera-btn">
+            <img src="./icons/camera.png" alt="mic">
+        </div>
+        <div class="control-cont" id="mic-btn">
+            <img src="./icons/mic.png" alt="mic">
+        </div>
+        <a href="lobby.html">
+            <div class="control-cont" id="leave">
+                <img src="./icons/phone.png" alt="mic">
+            </div>
+        </a>
+
+    </div>
+</body>
+<script src="./scripts/agora-rtm-sdk-1.4.5.js"></script>
+<script src="./scripts/index.js"></script>
+</html>
