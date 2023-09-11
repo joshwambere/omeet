@@ -32,7 +32,7 @@ COPY .env .
 
 EXPOSE 4000
 
-CMD ["sh", "-c", "while ! nc -z db 5432; do sleep 1; done && yarn prisma:migrate && yarn start:dev"]
+CMD ["sh", "-c", "while ! nc -z db 5432; do sleep 1; done && yarn prisma:migrate:run && yarn start:dev"]
 
 
 # stage 3
