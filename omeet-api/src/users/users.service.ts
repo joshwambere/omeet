@@ -1,28 +1,46 @@
-import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import {BadRequestException, Injectable} from '@nestjs/common';
+import {CreateUserDto} from './dto/create-user.dto';
+import {UpdateUserDto} from './dto/update-user.dto';
 import {PrismaService} from "../../prisma/prisma.service";
+import {GLOBAL_USER_EXISTS} from "../__shared/constants/messages.constants";
 
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService) {}
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
-  }
+    constructor(private prisma: PrismaService) {
+    }
 
-  async findAll() {
-    return this.prisma.user.findMany();
-  }
+    async create(createUserDto: CreateUserDto) {
+        const {email, password, username} = createUserDto;
+        const userExists = await this.prisma.user.findUnique({
+            where: {
+                email
+            }
+        })
+        console.log(userExists)
+        if (userExists) throw new BadRequestException(GLOBAL_USER_EXISTS);
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
+        return this.prisma.user.create({
+            data: {
+                email,
+                password,
+                username
+            }
+        })
+    }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
+    async findAll() {
+        return this.prisma.user.findMany();
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
-  }
+    findOne(id: number) {
+        return `This action returns a #${id} user`;
+    }
+
+    update(id: number, updateUserDto: UpdateUserDto) {
+        return `This action updates a #${id} user`;
+    }
+
+    remove(id: number) {
+        return `This action removes a #${id} user`;
+    }
 }
