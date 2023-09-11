@@ -36,7 +36,8 @@ services:
     depends_on:
 
       - db
-
+    volumes:
+      - ../src:/usr/app/src
     networks:
 
       - postgres
