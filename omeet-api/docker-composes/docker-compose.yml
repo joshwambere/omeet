@@ -34,7 +34,6 @@ services:
         target: development
 
     depends_on:
-
       - db
     volumes:
       - ../src:/usr/app/src
