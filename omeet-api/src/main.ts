@@ -33,7 +33,7 @@ async function bootstrap() {
       .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup(`/api/v${process.env.API_VERSION}/docs`, app, document);
+  SwaggerModule.setup(`/api/${process.env.API_VERSION}/docs`, app, document);
   const Port: number = parseInt(process.env.PORT) || 7000;
   app.useGlobalFilters(new CustomExceptionFilter());
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
