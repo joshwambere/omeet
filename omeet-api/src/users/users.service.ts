@@ -16,7 +16,7 @@ export class UsersService {
                 email
             }
         })
-        console.log(userExists)
+
         if (userExists) throw new BadRequestException(GLOBAL_USER_EXISTS);
 
         return this.prisma.user.create({

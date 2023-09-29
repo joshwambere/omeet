@@ -29,6 +29,7 @@ model invitations {
   organizerId String
   organizer  User @relation(fields: [organizerId], references: [id])
   invitiees Json
+  role       Role @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -39,4 +40,9 @@ enum EUserAccountStatus {
   DELETED
   VERIFIED
   UNVERIFIED
+}
+
+enum Role {
+  ADMIN
+  USER
 }
