@@ -1,9 +1,16 @@
-import {BadGatewayException, BadRequestException, Injectable, InternalServerErrorException} from '@nestjs/common';
+import {
+    BadGatewayException,
+    BadRequestException,
+    HttpException,
+    Injectable,
+    InternalServerErrorException
+} from '@nestjs/common';
 import {CreateAuthDto} from './dto/create-auth.dto';
 import {UpdateAuthDto} from './dto/update-auth.dto';
 import {PrismaService} from "../../prisma/prisma.service";
 import {
-    AUTH_USER_CREATED_VERIFICATION_EMAIL_SENT,
+    AUTH_USER_ALREADY_VERIFIED,
+    AUTH_USER_CREATED_VERIFICATION_EMAIL_SENT, AUTH_USER_NOT_FOUND, AUTH_USER_VERIFIED,
     GLOBAL_USER_EXISTS,
     NOTIFICATION_EMAIL_NOT_SENT
 } from "../__shared/constants/messages.constants";
@@ -20,6 +27,7 @@ import {config} from "dotenv";
 import {ConfigService} from "@nestjs/config";
 import {PinoLogger} from "nestjs-pino";
 import {hashService} from "../__shared/utils/security/password/HashFunction";
+import {EUserAccountStatus} from "../__shared/enums/EUser-Account.status";
 
 @Injectable()
 export class AuthService {
@@ -79,6 +87,41 @@ export class AuthService {
 
     }
 
+    async verify(token: string) {
+        try {
+            const {id} = await this.jwtService.verifyAsync(token, {
+                secret: this.configService.get('JWT_SECRET'),
+            });
+
+            const user = await this.prisma.user.findFirst({
+                where: {
+                    id,
+                }
+            })
+
+            if (user ==null)
+                throw new BadRequestException(AUTH_USER_NOT_FOUND);
+
+            if (user.status === EUserAccountStatus.VERIFIED)
+                throw new BadRequestException(AUTH_USER_ALREADY_VERIFIED);
+
+            await this.prisma.user.update({
+                where: {
+                    id,
+                },
+                data: {
+                    status: EUserAccountStatus.VERIFIED,
+                },
+            });
+
+            return {
+                message: AUTH_USER_VERIFIED,
+                data: null,
+            };
+        } catch (e) {
+            throw new HttpException(e.message,e.status);
+        }
+    }
     findAll() {
         return `This action returns all auth`;
     }
@@ -117,6 +160,6 @@ export class AuthService {
     }
 
     constructVerifyEmailLink(token: string): string {
-        return `${BACKEND_APP_URL}/auth/verify/${token}`;
+        return `${BACKEND_APP_URL}/auth/verify?t=${token}`;
     }
 }
