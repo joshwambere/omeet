@@ -1,6 +1,6 @@
 import {Controller, Get, Post, Body, Patch, Param, Delete, Query} from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateAuthDto } from './dto/create-auth.dto';
+import {CreateAuthDto, LoginAuthDto} from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import {ApiTags} from "@nestjs/swagger";
 
@@ -19,9 +19,9 @@ export class AuthController {
     return this.authService.verify(t);
   }
 
-  @Get()
-  findAll() {
-    return this.authService.findAll();
+  @Post('/login')
+  findAll(@Body() loginAuthDto: LoginAuthDto) {
+    return this.authService.login(loginAuthDto);
   }
 
   @Get(':id')

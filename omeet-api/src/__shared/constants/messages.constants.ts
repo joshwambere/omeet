@@ -4,3 +4,7 @@ export const NOTIFICATION_EMAIL_NOT_SENT = 'Well that was unexpected, try again 
 export const AUTH_USER_ALREADY_VERIFIED = 'User already verified';
 export const AUTH_USER_VERIFIED = 'User verified successfully';
 export const AUTH_USER_NOT_FOUND = 'Oops, looks like you are not registered';
+export const AUTH_USER_NOT_VERIFIED = 'Please verify your account';
+export const AUTH_USER_LOGGED_IN = 'Logged in successfully';
+export const AUTH_USER_LOGGED_OUT = 'Logged out successfully';
+export const AUTH_USER_INVALID_CREDENTIALS = 'Email or password is incorrect';

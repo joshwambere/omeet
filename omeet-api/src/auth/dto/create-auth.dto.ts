@@ -18,3 +18,16 @@ export class CreateAuthDto {
     @ApiProperty()
     username: string;
 }
+
+export class LoginAuthDto {
+    @IsString()
+    @IsNotEmpty()
+    @IsEmail()
+    @ApiProperty()
+    email: string;
+
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty()
+    password: string;
+}
