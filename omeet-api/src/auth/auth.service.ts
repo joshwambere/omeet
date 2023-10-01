@@ -3,14 +3,18 @@ import {
     BadRequestException,
     HttpException,
     Injectable,
-    InternalServerErrorException
+    InternalServerErrorException, NotFoundException
 } from '@nestjs/common';
-import {CreateAuthDto} from './dto/create-auth.dto';
+import {CreateAuthDto, LoginAuthDto} from './dto/create-auth.dto';
 import {UpdateAuthDto} from './dto/update-auth.dto';
 import {PrismaService} from "../../prisma/prisma.service";
 import {
     AUTH_USER_ALREADY_VERIFIED,
-    AUTH_USER_CREATED_VERIFICATION_EMAIL_SENT, AUTH_USER_NOT_FOUND, AUTH_USER_VERIFIED,
+    AUTH_USER_CREATED_VERIFICATION_EMAIL_SENT,
+    AUTH_USER_INVALID_CREDENTIALS,
+    AUTH_USER_LOGGED_IN,
+    AUTH_USER_NOT_FOUND,
+    AUTH_USER_VERIFIED,
     GLOBAL_USER_EXISTS,
     NOTIFICATION_EMAIL_NOT_SENT
 } from "../__shared/constants/messages.constants";
@@ -26,7 +30,7 @@ import {SendgridService} from "../__shared/utils/notifications/email.service";
 import {config} from "dotenv";
 import {ConfigService} from "@nestjs/config";
 import {PinoLogger} from "nestjs-pino";
-import {hashService} from "../__shared/utils/security/password/HashFunction";
+import {compareHash, hashService} from "../__shared/utils/security/password/HashFunction";
 import {EUserAccountStatus} from "../__shared/enums/EUser-Account.status";
 
 @Injectable()
@@ -122,8 +126,42 @@ export class AuthService {
             throw new HttpException(e.message,e.status);
         }
     }
-    findAll() {
-        return `This action returns all auth`;
+    async login(loginAuthDto: LoginAuthDto) {
+        const {email, password} = loginAuthDto;
+        try {
+            const user = await this.prisma.user.findFirst({
+                where: {
+                    email,
+                }
+            })
+
+            if (user == null)
+                throw new NotFoundException(AUTH_USER_NOT_FOUND);
+
+            if (user.status !== EUserAccountStatus.VERIFIED)
+                throw new BadRequestException(AUTH_USER_NOT_FOUND);
+
+            const isPasswordValid = await compareHash(password, user.password);
+
+            if (!isPasswordValid)
+                throw new BadRequestException(AUTH_USER_INVALID_CREDENTIALS);
+
+            const tokenData: ITokenData = {
+                id: user.id,
+                verified: user.status,
+            }
+
+            const signToken = await this.signToken(tokenData);
+
+            return{
+                message: AUTH_USER_LOGGED_IN,
+                data: signToken,
+            }
+
+        }catch (e){
+            this.logger.error(e);
+            throw new HttpException(e.message,e.status);
+        }
     }
 
     findOne(id: number) {
