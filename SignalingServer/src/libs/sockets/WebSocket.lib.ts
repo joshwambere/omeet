@@ -6,6 +6,7 @@ import {User} from "../../_shared/interfaces/IUser.interface";
 import axios from "axios";
 import SocketUtil from "../../_shared/utils/Socket.util";
 import {IRoomMember} from "../../_shared/interfaces/IRoomMember";
+import {BadRequestException} from "../../exceptions/Signaling.exception";
 
 export class WebSocketLib extends WebSocketServer{
     public static options: WebSocket.ServerOptions;
@@ -45,7 +46,7 @@ export class WebSocketLib extends WebSocketServer{
                         }
 
                         break;
-                    case "join":
+                    case "create:join":
                         try {
                             const roomName = data.d.roomName;
                             this.getUserInformation(`http://localhost:4000/users/token/${data.t}`).then((user:User) => {
@@ -77,7 +78,7 @@ export class WebSocketLib extends WebSocketServer{
 
     public join(roomName: string, user: User, socketId:string): void {
         if ( !WebSocketLib._rooms.has(roomName) )
-            throw new Error(`Room ${roomName} does not exist`);
+            throw new BadRequestException('Room does not exist');
 
         this.SocketUtil.userJoin({id: user.id, username: user.username, room: roomName, socketId: socketId, isOnline: true, email: user.email});
     }
