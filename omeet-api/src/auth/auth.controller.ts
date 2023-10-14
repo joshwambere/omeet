@@ -38,4 +38,8 @@ export class AuthController {
   remove(@Param('id') id: string) {
     return this.authService.remove(+id);
   }
+  @Get('user/:token')
+  getUserInformation(@Param('token') token: string) {
+    return this.authService.getUserInformation(token);
+  }
 }

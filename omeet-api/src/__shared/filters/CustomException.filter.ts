@@ -29,7 +29,14 @@ export class CustomExceptionFilter implements ExceptionFilter {
      * @private
      */
     private getExceptionMessage(exception: HttpException): string {
-        const message = exception.getResponse();
+        const message = (() => {
+            try {
+                return exception.getResponse();
+            } catch (error) {
+                return error instanceof TypeError ? exception.message : error;
+            }
+        })();
+
         if (typeof message === 'object') {
             if (Array.isArray(message['message'])) {
                 return message['message'].map((item) => item).join(', ');
