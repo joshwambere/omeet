@@ -164,6 +164,10 @@ export class AuthService {
         }
     }
 
+    async getUserInformation(token: string) {
+        const {id} = await this.jwtService.verifyAsync(token, )
+    }
+
     findOne(id: number) {
         return `This action returns a #${id} auth`;
     }
