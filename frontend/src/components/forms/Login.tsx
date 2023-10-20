@@ -67,7 +67,7 @@ const LoginPage = (): JSX.Element => {
                                     <span className="bg-[#d9e0e5] ml-2 h-0.5 w-7"></span>
                                 </h2>
                                 <h1 className="font-bold lg:text-4xl sm:text-2xl capitalize text-[#0d3856] pt-7 pb-3 leading-relaxed">
-                                    Communication Makes a good Team
+                                    Fast and Free Video Meetings here
                                 </h1>
                             </div>
                         </div>
@@ -76,7 +76,7 @@ const LoginPage = (): JSX.Element => {
                     <div className="w-full items-center lg:pt-8 xs:pt-4">
                         <div className="group-input flex flex-col py-2">
                             <label htmlFor="email" className="text-[#8c98a0]">
-                                Email / username
+                                Email
                             </label>
                             <div className="flex relative items-center bg-[#f1f6fa] rounded-3xl px-4 lg:py-2 sm:py-1 focus:bg-white input-group mt-2">
                                 <TiUserOutline color="#8c98a0" size="20" />
