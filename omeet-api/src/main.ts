@@ -11,7 +11,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, { bufferLogs: true });
   app.useLogger(app.get(Logger));
   const whitelist = [
-    '*', //delete this on staging
     'http://localhost:3000',
     'http://localhost:4000',
     'http://localhost:5050',

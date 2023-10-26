@@ -25,11 +25,9 @@ export type UserSignupResponse = {
 };
 
 export type UserSignupRequest = {
-    name: string;
+
     email: string;
-    userName: string;
-    employeeId: string;
-    profileImage: string;
+    username: string;
     password: string;
 };
 

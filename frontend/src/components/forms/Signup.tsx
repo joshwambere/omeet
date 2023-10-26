@@ -26,19 +26,17 @@ const Signup = (): ReactElement => {
 
     const onFinish = async (data: any) => {
         signup({
-            name: data?.name,
-            userName: data?.username,
+
+            username: data?.username,
             email: data?.email,
-            employeeId: data?.emp,
             password: data?.password,
-            profileImage: profileImage ? profileImage : ''
         })
             .unwrap()
             .then((res: any) => {
                 SuccessMessage(res.message);
             })
             .catch((err: any) => {
-                ErrorMessage(err.message ? err.message : 'Error signing up');
+                ErrorMessage(err.data.message ? err.data.message : 'Error signing up');
             });
     };
     return (
@@ -66,51 +64,29 @@ const Signup = (): ReactElement => {
                         }}
                         className="w-full items-center lg:pt-4 sm:pt-2 flex-col"
                     >
-                        <div className="flex double-group pt-2 w-full gap-4">
-                            <div className="group-input flex flex-col py-2 w-1/2">
-                                <label htmlFor="email" className="text-[#8c98a0]">
-                                    Name
-                                </label>
-                                <div className="flex items-center bg-[#f1f6fa] rounded-3xl px-4 py-3 focus:bg-white input-group mt-2">
-                                    <TiUserOutline color="#8c98a0" size="20" />
-                                    <Form.Item
-                                        name="name"
-                                        rules={requiredInput}
-                                        style={{ margin: 0 }}
-                                    >
-                                        <input
-                                            className="bg-transparent w-full outline-none pl-2 login-input"
-                                            type="text"
-                                            id="email"
-                                            name="email"
-                                        />
-                                    </Form.Item>
-                                </div>
-                            </div>
-                            <div className="group-input flex flex-col py-2 w-1/2 ">
-                                <label htmlFor="username" className="text-[#8c98a0]">
-                                    Username
-                                </label>
-                                <div className="flex items-center bg-[#f1f6fa] rounded-3xl px-4 py-3 focus:bg-white input-group mt-2">
-                                    <FiUserCheck color="#8c98a0" size="20" />
-                                    <Form.Item
+                        <div className="flex flex-col double-group pt-2 w-full gap-4">
+                            <label htmlFor="username" className="text-[#8c98a0]">
+                                Username
+                            </label>
+                            <div className="flex items-center bg-[#f1f6fa] rounded-3xl px-4 py-3 focus:bg-white input-group mt-2">
+                                <FiUserCheck color="#8c98a0" size="20" />
+                                <Form.Item
+                                    name="username"
+                                    rules={requiredInput}
+                                    style={{ margin: 0 }}
+                                >
+                                    <input
+                                        className="bg-transparent w-full outline-none pl-2 login-input"
+                                        type="text"
+                                        id="email"
                                         name="username"
-                                        rules={requiredInput}
-                                        style={{ margin: 0 }}
-                                    >
-                                        <input
-                                            className="bg-transparent w-full outline-none pl-2 login-input"
-                                            type="text"
-                                            id="email"
-                                            name="username"
-                                        />
-                                    </Form.Item>
-                                </div>
+                                    />
+                                </Form.Item>
                             </div>
                         </div>
 
-                        <div className="flex double-group pt-2 w-full gap-4">
-                            <div className="group-input flex flex-col py-2 w-1/2">
+                        <div className="flex flex-col double-group pt-2 w-full gap-4">
+
                                 <label htmlFor="email" className="text-[#8c98a0]">
                                     Email
                                 </label>
@@ -129,29 +105,28 @@ const Signup = (): ReactElement => {
                                         />
                                     </Form.Item>
                                 </div>
-                            </div>
 
-                            <div className="group-input flex flex-col py-2 w-1/2 ">
-                                <label htmlFor="email" className="text-[#8c98a0]">
-                                    Password
-                                </label>
-                                <div className="flex items-center bg-[#f1f6fa] rounded-3xl px-4 py-3 focus:bg-white input-group mt-2">
-                                    <FiLock color="#8c98a0" />
-                                    <Form.Item
+                        </div>
+
+                        <div className="flex flex-col double-group pt-2 w-full gap-4">
+                            <label htmlFor="email" className="text-[#8c98a0]">
+                                Password
+                            </label>
+                            <div className="flex items-center bg-[#f1f6fa] rounded-3xl px-4 py-3 focus:bg-white input-group mt-2">
+                                <FiLock color="#8c98a0" />
+                                <Form.Item
+                                    name="password"
+                                    rules={passwordStrengthValidation}
+                                    style={{ margin: 0 }}
+                                >
+                                    <input
+                                        className="bg-transparent w-full outline-none pl-2 login-input"
+                                        type="password"
+                                        id="password"
                                         name="password"
-                                        rules={passwordStrengthValidation}
-                                        style={{ margin: 0 }}
-                                    >
-                                        <input
-                                            className="bg-transparent w-full outline-none pl-2 login-input"
-                                            type="password"
-                                            id="password"
-                                            name="password"
-                                        />
-                                    </Form.Item>
-                                </div>
+                                    />
+                                </Form.Item>
                             </div>
-
                         </div>
 
 
