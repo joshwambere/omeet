@@ -34,20 +34,13 @@ const LoginPage = (): JSX.Element => {
             .then((res: any) => {
                 dispatch(setCredentials({ token: res?.token }));
                 SuccessMessage(res.message);
-                userInfo()
-                    .unwrap()
-                    .then((res: any) => {
-                        dispatch(setUserInfo({ user: res.data }));
-                    })
-                    .catch(e => {
-                        ErrorMessage(e.message ? e.message : 'Error getting user info');
-                    });
             })
             .catch((e: any) => {
                 if (e.status === 'FETCH_ERROR') {
                     ErrorMessage('Network Error');
                 } else {
-                    ErrorMessage(e.message ? e.message : 'Error loging in');
+                    console.log(e);
+                    ErrorMessage(e.data.message ? e.data.message : 'Error logging in');
                 }
             });
     };
@@ -56,7 +49,7 @@ const LoginPage = (): JSX.Element => {
             <Form
                 name="Login"
                 onFinish={onFinish}
-                className="login-form lg:px-2 bg-[#ffffff] h-full  py-8 sm:px-1 lg:w-2/5 sm:w-2/3 xs:w-full   xs:mx-1 flex flex-col items-center float-right "
+                className="login-form px-2 lg:px-2 bg-[#ffffff] h-full  py-8 sm:px-1 lg:w-2/5 sm:w-2/3 xs:w-full   xs:mx-1 flex flex-col items-center float-right "
             >
                 <div className="lg:px-4 sm:px-2 h-full   flex flex-col justify-center form-inputs lg:mb-6">
                     <div>

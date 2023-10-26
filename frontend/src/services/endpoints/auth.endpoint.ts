@@ -34,7 +34,7 @@ const loginEndpoint = BaseApi.injectEndpoints({
         }),
         signup: builder.mutation<UserSignupResponse, UserSignupRequest>({
             query: credentials => ({
-                url: `auth/signup`,
+                url: `auth/register`,
                 method: 'POST',
                 body: credentials
             })
