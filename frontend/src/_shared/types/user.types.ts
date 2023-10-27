@@ -5,6 +5,12 @@ export interface userLogin {
 
 export interface userLoginResponse {
     message: string;
+    data?: LoginData;
+}
+
+export type LoginData = {
+    accessToken: string;
+    refreshToken: string;
 }
 
 export interface userInfoResponse {

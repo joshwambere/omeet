@@ -1,9 +1,14 @@
-import {ReactElement} from "react";
+import {ReactElement, Ref} from "react";
 import logo from "../../../public/assets/images/logo.png";
 import {GButton} from "@/components/buttons/GButton";
 import {useRouter} from "next/router";
+import {Profile} from "@/components/shared/Profile";
 
-export const NavMenu = (): ReactElement => {
+
+type NavMenuProps = {
+    isAuthenticated: boolean
+}
+export const NavMenu = (props:NavMenuProps): ReactElement => {
     const router = useRouter();
     const handleLoginClick = () => {
         router.replace('/auth/login');
@@ -14,7 +19,11 @@ export const NavMenu = (): ReactElement => {
                 <img src={logo.src} alt="logo" />
             </div>
             <div className="nav-menu__links flex items-center gap-8">
-                <GButton name="Login" type="secondary" withBorder={true} size="medium" bordered={true} onClick={handleLoginClick} />
+                {
+                    !props.isAuthenticated ? (
+                        <GButton name="Login" type="secondary" withBorder={true} size="medium" bordered={true} onClick={handleLoginClick} />
+                    ):<Profile name="GB" id={"1111"}/>
+                }
             </div>
         </div>
     )
