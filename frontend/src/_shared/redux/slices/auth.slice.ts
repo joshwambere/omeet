@@ -32,6 +32,7 @@ const slice = createSlice({
         removeCredentials: state => {
             state.token = undefined;
             localStorage.removeItem('_falcon_tkn');
+            state.isAuthenticated = false;
         }
     }
 });

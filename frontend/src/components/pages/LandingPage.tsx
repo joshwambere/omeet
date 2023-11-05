@@ -3,6 +3,7 @@ import img1 from "../../../public/assets/images/1.jpg";
 import img2 from "../../../public/assets/images/2.jpg";
 import img3 from "../../../public/assets/images/3.jpg";
 import {GButton} from "@/components/buttons/GButton";
+
 export const LandingPage = ():ReactElement => {
 
     return (
