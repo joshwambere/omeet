@@ -1,15 +1,24 @@
-import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import {HomePageLayout} from "@/components/layouts/HomePageLayout";
+import WithPublicRoute from "@/components/wrappers/PublicWrapper";
+import {ReactElement} from "react";
+import dynamic from 'next/dynamic'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+const  Home = (): ReactElement=> {
   return (
-    <main
-      className=""
+    <div
+      className="bg-[#080402]"
     >
       <HomePageLayout />
-    </main>
+    </div>
   )
 }
+
+
+
+const DynamicComponentWithNoSSR = dynamic(() => Promise.resolve(Home), {
+  ssr: false
+})
+export default WithPublicRoute(DynamicComponentWithNoSSR)

@@ -24,7 +24,6 @@ import { routes } from '@/config/router.config';
 
 const LoginPage = (): JSX.Element => {
     const [login, { isLoading: loginLoading }] = useLoginMutation();
-    const [userInfo] = useUserInfoMutation();
     const dispatch = useDispatch();
     const router = useRouter();
 
@@ -32,7 +31,8 @@ const LoginPage = (): JSX.Element => {
         login({ email: values?.username, password: values?.password })
             .unwrap()
             .then((res: any) => {
-                dispatch(setCredentials({ token: res?.token }));
+                dispatch(setCredentials({ token: res?.data?.accessToken }));
+                router.replace(routes.home.url);
                 SuccessMessage(res.message);
             })
             .catch((e: any) => {
@@ -71,7 +71,7 @@ const LoginPage = (): JSX.Element => {
                             <label htmlFor="email" className="text-[#8c98a0]">
                                 Email
                             </label>
-                            <div className="flex relative items-center bg-[#f1f6fa] rounded-3xl px-4 lg:py-2 sm:py-1 focus:bg-white input-group mt-2">
+                            <div className="flex relative items-center bg-[#f1f6fa] rounded-3xl px-4 lg:py-2 sm:py-1 focus:bg-white  mt-2">
                                 <TiUserOutline color="#8c98a0" size="20" />
                                 <Form.Item
                                     name="username"
@@ -91,7 +91,7 @@ const LoginPage = (): JSX.Element => {
                             <label htmlFor="password" className="text-[#8c98a0] pt-4">
                                 Password
                             </label>
-                            <div className=" relative flex items-center bg-[#f1f6fa] rounded-3xl px-4 lg:py-2 sm:py-1 focus:bg-white input-group mt-2">
+                            <div className=" relative flex items-center bg-[#f1f6fa] rounded-3xl px-4 lg:py-2 sm:py-1 focus:bg-white  mt-2">
                                 <FiLock color="#8c98a0" />
 
                                 <Form.Item

@@ -11,8 +11,8 @@ export const routes = {
         name: 'Pm',
         url: '/pm/manage'
     },
-    chat: {
-        name: 'Chat',
+    home: {
+        name: 'Home',
         url: '/'
     },
     chatRoom: {
