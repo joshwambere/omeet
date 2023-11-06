@@ -75,7 +75,7 @@ export const Profile = (props:ProfileProps):ReactElement => {
 
     return (
         <div className="flex justify-center items-center bg-[#63A7FFFF] opacity-80 w-10 h-10 rounded-full hover:cursor-pointer">
-            <Dropdown menu={menuProps} placement="bottomLeft" arrow={{ pointAtCenter: true }}>
+            <Dropdown menu={menuProps} placement="bottomCenter" arrow={{ pointAtCenter: true }} overlayClassName="profile-dropdown">
                 {
                     !props.profilePicture ? (<span style={{color: generateProfileColor(props.name, props.id)}}
                                                    className="font-medium text-lg uppercase tracking-wider">{props.name}</span>)
