@@ -59,3 +59,26 @@ body {
 .ant-form-item{
   width: 100%!important;
 }
+
+.profile-dropdown > .ant-dropdown-arrow{
+  background: #4b4b4b !important;
+}
+.profile-dropdown > .ant-dropdown-menu{
+    background: #4b4b4b !important;
+    color: #fff!important;
+}
+
+.profile-dropdown > .ant-dropdown-arrow::before{
+  background: #4b4b4b!important;
+}
+
+.profile-dropdown > ul > .ant-dropdown-menu-item-active:hover{
+  background: #9f9e9e !important;
+}
+.profile-dropdown > ul > li svg{
+  color: #fff!important;
+}
+.profile-dropdown > ul > li .ant-dropdown-menu-title-content{
+  color: #fff!important;
+}
+
