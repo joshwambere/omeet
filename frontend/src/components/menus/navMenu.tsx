@@ -24,6 +24,7 @@ export const NavMenu = (props:NavMenuProps): ReactElement => {
                         <GButton name="Login" type="secondary" withBorder={true} size="medium" bordered={true} onClick={handleLoginClick} />
                     ):<Profile name="GB" id={"1111"}/>
                 }
+                
             </div>
         </div>
     )
